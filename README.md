@@ -1,4 +1,4 @@
-# !!!BETA ACCESS!!! Ship Battle 3D! THE NEW HOT CRAZE REPLACING Ship Battle 2D
+# !!!BETA ACCESS!!! Island Defence 3D! THE NEW HOT CRAZE REPLACING Ship Battle 2D
 
 This assignment builds on the Island Defence game from assignment one and makes it 3D, and slightly changes the gameplay. A player controls the island cannon shooting at enemy boats which are shooting at the island. The score is the number of boats destroyed before being overwhelmed - the island always loses, so it is a kind of survival game. The boats should be controlled by a simple AI - they spawn a distance from the island and then navigate towards the island.
 
