@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "mousemotion.h": "c",
+        "util.h": "c",
+        "camera.h": "c"
+    }
+}

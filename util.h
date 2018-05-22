@@ -36,6 +36,8 @@ typedef struct {
 
 typedef struct { float x, y; } vec2f;
 
+typedef struct { float x, y, z; } vec3f;
+
 typedef struct { 
     vec2f p,v;
     float m,a;
