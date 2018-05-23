@@ -4,5 +4,6 @@
 #include "util.h"
 
 void drawIsland();
+void createIsland();
 
 #endif

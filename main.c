@@ -15,6 +15,7 @@ void display(void)
         xyz();
         glDisable(GL_DEPTH_TEST);
         DraweWater(true,true,64);
+        drawIsland();
     glPopMatrix();
     global.frames++;
     if(global.debug){
