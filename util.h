@@ -29,14 +29,9 @@
 
 typedef enum { false, true } bool;
 
-typedef struct { 
-    float x, y, wl, k, a, v; 
-    int segments;
-} sinWave;
-
 typedef struct { float x, y; } vec2f;
 
-typedef struct { float x, y, z; } vec3f;
+typedef struct { float x, y, z; } Vec3f;
 
 typedef struct { 
     vec2f p,v;

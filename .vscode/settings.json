@@ -3,6 +3,7 @@
         "main.h": "c",
         "mousemotion.h": "c",
         "util.h": "c",
-        "camera.h": "c"
+        "camera.h": "c",
+        "water.h": "c"
     }
 }

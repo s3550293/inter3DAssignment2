@@ -2,14 +2,14 @@
 #define _main_h_
 
 #include "util.h"
-#include "camera.h"
+#include "water.h"
 
 void drawLine();
 void xyz(void);
 void idle();
 void reshape(int width, int height);
 void displayHUD();
-void mouseMotion(int x, int y);
+void camera();
 
 bool SHOW_T = false;
 bool SHOW_N = false;

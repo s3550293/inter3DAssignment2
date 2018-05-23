@@ -1,7 +1,5 @@
 #include "main.h"
 
-Camera camera;
-
 void display(void)
 {
     glEnable(GL_DEPTH_TEST);
@@ -9,8 +7,15 @@ void display(void)
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-    xyz();
+    
+    if (global.OSD)
+        displayHUD();
+    glPushMatrix();
+        camera(-30);
+        xyz();
+        glDisable(GL_DEPTH_TEST);
+        DraweWater(true,true,64);
+    glPopMatrix();
     global.frames++;
     if(global.debug){
         printf("\ndisplay\n");
@@ -25,26 +30,31 @@ void display(void)
     Displays the XYZ axis
 */
 void xyz(void){
+        glBegin(GL_LINES);
+        /* glColor3f(red,green,blue);*/
+        glColor3f(0,1,0);
+        /* glVertex3f(x,y,z);*/
+        glVertex3f(0,0,0);
+        glVertex3f(0,1,0);
+        glEnd();
 
-    glBegin(GL_LINES);
-    /* glColor3f(red,green,blue);*/
-    glColor3f(0,1,0);
-    /* glVertex3f(x,y,z);*/
-    glVertex3f(0,0,0);
-    glVertex3f(0,1,0);
-    glEnd();
+        glBegin(GL_LINES);
+        glColor3f(1,0,0);
+        glVertex3f(0,0,0);
+        glVertex3f(1,0,0);
+        glEnd();
 
-    glBegin(GL_LINES);
-    glColor3f(1,0,0);
-    glVertex3f(0,0,0);
-    glVertex3f(1,0,0);
-    glEnd();
+        glBegin(GL_LINES);
+        glColor3f(0,0,1);
+        glVertex3f(0,0,0);
+        glVertex3f(0,0,1);
+        glEnd();
+}
 
-    glBegin(GL_LINES);
-    glColor3f(0,0,1);
-    glVertex3f(0,0,0);
-    glVertex3f(0,0,1);
-    glEnd();
+void camera(int rotaion){
+    glTranslatef(0,0,-5);
+    glRotatef(30,1,0,0);
+    glRotatef(rotaion,0,1,0);
 }
 
 /*
@@ -64,7 +74,7 @@ void keyboard(unsigned char key, int x, int y)
 }
 
 void mouseMotion(int x, int y){
-    
+    printf("%d , %d\n",(x/2)%360,(x/2)%360);
 }
 
 /*
@@ -85,9 +95,8 @@ void idle(void){
     if (global.debug)
         printf("%f %f\n", t, dt);
     if (global.go){
-
+        updateWater(dt,true, 0.7);
     }
-    // updateBoat(WAVEMOTION);
     lastT = t;
     
     /* Frame rate */
@@ -172,8 +181,8 @@ void reshape(int w, int h){
     glMatrixMode(GL_MODELVIEW);
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitWindowSize(600,600);
@@ -183,8 +192,9 @@ int main(int argc, char **argv)
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
     glutIdleFunc(idle);
-    glutMotionFunc(mouseMotion); //This calls the mouse motion when the a mouse button is clicked
-    //glutPassiveMotionFunc(mouseMotion); // This calls the mouse motion when the mouse moves in the window (No click needed) 
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
+    //glutMotionFunc(mouseMotion); //This calls the mouse motion when the a mouse button is clicked
+    glutPassiveMotionFunc(mouseMotion); // This calls the mouse motion when the mouse moves in the window (No click needed) 
     glutMainLoop();
     return EXIT_SUCCESS;
 }
