@@ -4,6 +4,8 @@
         "mousemotion.h": "c",
         "util.h": "c",
         "camera.h": "c",
-        "water.h": "c"
+        "water.h": "c",
+        "glut.h": "c",
+        "glu.h": "c"
     }
 }

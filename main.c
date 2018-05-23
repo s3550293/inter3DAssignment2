@@ -12,8 +12,8 @@ void display(void)
         displayHUD();
     glPushMatrix();
         camera(-30);
+        // light();
         xyz();
-        glDisable(GL_DEPTH_TEST);
         DraweWater(true,true,64);
         drawIsland();
     glPopMatrix();
@@ -24,6 +24,13 @@ void display(void)
     }
 
     glutSwapBuffers();
+}
+
+void light(){
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    GLfloat lightpos[] = {.5, 1., 1., 0.};
+    glLightfv(GL_LIGHT0,GL_SPECULAR, lightpos);
 }
 
 
@@ -186,7 +193,7 @@ int main(int argc, char **argv){
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    glutInitWindowSize(600,600);
+    glutInitWindowSize(800,600);
     glutCreateWindow("Assignment 1 Island Battle!");
 
     glutDisplayFunc(display);

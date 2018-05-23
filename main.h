@@ -9,7 +9,8 @@ void xyz(void);
 void idle();
 void reshape(int width, int height);
 void displayHUD();
-void camera();
+void camera(int rotaion);
+void light();
 
 bool SHOW_T = false;
 bool SHOW_N = false;
