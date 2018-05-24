@@ -18,8 +18,8 @@ void display(void)
         xyz();
         // light();
         DraweWater(true,true,64);
-        DrawCrust();
-        drawPlayer();
+        // DrawCrust();
+        // drawPlayer();
         glDisable(GL_DEPTH_TEST);
         
         glEnable(GL_DEPTH_TEST);
@@ -67,7 +67,7 @@ void xyz(void){
 }
 
 void camera(int rotaion){
-    glTranslatef(0,-1.5,-3.5);
+    glTranslatef(0,-1.5,-7.5);
     glRotatef(40,1,0,0);
     glRotatef(rotaion,0,1,0);
 }

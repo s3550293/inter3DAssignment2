@@ -33,15 +33,15 @@ void DraweWater(bool drawT, bool drawN, float seg){
     // glEnable(GL_DEPTH_TEST); 
 
 
-    // glColor3f(1,1,0);
-    // for (int j = 0; j < waves.segments+1; j++) {
-    //     waves.z = -5 + j * zStep;
-    //     for (int i = 0; i <= waves.segments; i++) {
-    //         waves.x = -5.0 + i * xStep;
-    //         waves.y = waves.a * sin(((waves.k * waves.x) + (1 * waves.t)) + waves.v);
-    //         drawNormal(waves.x,waves.z,waves.a,waves.k,zStep,j);
-    //     }                
-    // }
+    glColor3f(1,1,0);
+    for (int j = 0; j < waves.segments+1; j++) {
+        waves.z = -5 + j * zStep;
+        for (int i = 0; i <= waves.segments; i++) {
+            waves.x = -5.0 + i * xStep;
+            waves.y = calcSineWaveSum(waves.a, waves.k, waves.x, z, waves.t);
+            drawNormal(waves.x,waves.z,waves.a,waves.k,zStep,j);
+        }                
+    }
     glPopMatrix();
 }
 
@@ -56,12 +56,13 @@ void updateWater(float dt, bool drawMotion, float speed){
 void drawNormal(float x, float z, float a, float k, float zStep, float j){
     float y;
     float dx = 1;
-    float dy = a * k * cos(((k * x) + (1 * waves.t)) + waves.v);
+    float w = .25 * M_PI;
+    float dy = a * k * sin(((k*x)*x)+((k*z)*z)+(w*waves.t));
     float t = sqrtf(dx * dx + dy * dy);
     t /= 0.15;
     dx /= t;
     dy /= t;
-    y = a * sin(((k * x) + (1 * waves.t)) + waves.v);
+    y = calcSineWaveSum(waves.a, waves.k, waves.x, z, waves.t);
     glBegin(GL_LINES);
     glVertex3f(x,y,z);
     glVertex3f(x - dy, y + dx, z);
