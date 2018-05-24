@@ -3,7 +3,8 @@
 
 #include "util.h"
 
-void drawIsland();
-void createIsland();
+void DrawCrust();
+void DrawIsland();
+
 
 #endif

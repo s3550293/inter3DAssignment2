@@ -6,6 +6,7 @@
         "camera.h": "c",
         "water.h": "c",
         "glut.h": "c",
-        "glu.h": "c"
+        "glu.h": "c",
+        "player.h": "c"
     }
 }

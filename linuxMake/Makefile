@@ -1,3 +1,3 @@
 LIBS = -lglut -lGLU -lGL -lm
-prim: prim.c
-	gcc -o Island3D main.c $(LIBS)
+prim: main.c
+	gcc -o Island3D *.c $(LIBS)

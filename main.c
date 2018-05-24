@@ -1,5 +1,7 @@
 #include "main.h"
 
+float angle = -45;
+
 void display(void)
 {
     glEnable(GL_DEPTH_TEST);
@@ -10,12 +12,17 @@ void display(void)
     
     if (global.OSD)
         displayHUD();
+    // light();
     glPushMatrix();
-        camera(-30);
-        // light();
+        camera(angle);
         xyz();
+        // light();
         DraweWater(true,true,64);
-        drawIsland();
+        DrawCrust();
+        drawPlayer();
+        glDisable(GL_DEPTH_TEST);
+        
+        glEnable(GL_DEPTH_TEST);
     glPopMatrix();
     global.frames++;
     if(global.debug){
@@ -29,8 +36,8 @@ void display(void)
 void light(){
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    GLfloat lightpos[] = {.5, 1., 1., 0.};
-    glLightfv(GL_LIGHT0,GL_SPECULAR, lightpos);
+    GLfloat lightpos[] = {5,8,1,0};
+    glLightfv(GL_LIGHT0,GL_POSITION, lightpos);
 }
 
 
@@ -43,25 +50,25 @@ void xyz(void){
         glColor3f(0,1,0);
         /* glVertex3f(x,y,z);*/
         glVertex3f(0,0,0);
-        glVertex3f(0,1,0);
+        glVertex3f(0,5,0);
         glEnd();
 
         glBegin(GL_LINES);
         glColor3f(1,0,0);
         glVertex3f(0,0,0);
-        glVertex3f(1,0,0);
+        glVertex3f(5,0,0);
         glEnd();
 
         glBegin(GL_LINES);
         glColor3f(0,0,1);
         glVertex3f(0,0,0);
-        glVertex3f(0,0,1);
+        glVertex3f(0,0,5);
         glEnd();
 }
 
 void camera(int rotaion){
-    glTranslatef(0,0,-5);
-    glRotatef(30,1,0,0);
+    glTranslatef(0,-1.5,-3.5);
+    glRotatef(40,1,0,0);
     glRotatef(rotaion,0,1,0);
 }
 
@@ -75,6 +82,14 @@ void keyboard(unsigned char key, int x, int y)
     case 27:
     // case 'Q':
         exit(EXIT_SUCCESS);
+        break;
+    case 'a':
+    // case 'Q':
+        angle += 1;
+        break;
+    case 'd':
+    // case 'Q':
+        angle -= 1;
         break;
     default:
         break;
@@ -200,9 +215,11 @@ int main(int argc, char **argv){
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
     glutIdleFunc(idle);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
     //glutMotionFunc(mouseMotion); //This calls the mouse motion when the a mouse button is clicked
     glutPassiveMotionFunc(mouseMotion); // This calls the mouse motion when the mouse moves in the window (No click needed) 
+    playerIni();
     glutMainLoop();
+    
     return EXIT_SUCCESS;
 }
