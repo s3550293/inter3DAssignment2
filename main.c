@@ -16,10 +16,10 @@ void display(void)
     glPushMatrix();
         camera(angle);
         xyz();
-        // light();
+        light();
         DraweWater(true,true,64);
-        // DrawCrust();
-        // drawPlayer();
+        DrawCrust();
+        drawPlayer();
         glDisable(GL_DEPTH_TEST);
         
         glEnable(GL_DEPTH_TEST);

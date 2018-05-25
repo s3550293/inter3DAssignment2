@@ -23,9 +23,11 @@ void DraweWater(bool drawT, bool drawN, float seg){
                 waves.x = -5.0 + i * xStep;
                 // waves.y = waves.a * sin(((waves.k * waves.x) + (1 * waves.t)) + waves.v);
                 waves.y = calcSineWaveSum(waves.a, waves.k, waves.x, waves.z, waves.t);
+                glNormal3f(waves.x,waves.y,waves.z);
                 glVertex3f(waves.x,waves.y,waves.z);
                 z = -5 + (j+1) * zStep;
                 waves.y = calcSineWaveSum(waves.a, waves.k, waves.x, z, waves.t);
+                glNormal3f(waves.x,waves.y,z);
                 glVertex3f(waves.x,waves.y,z);
             }
             glEnd();              
