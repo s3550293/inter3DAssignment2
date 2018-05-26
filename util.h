@@ -39,8 +39,8 @@ typedef struct {
 } cannonBall;
 
 typedef struct { 
-    Vec3f pos;
-    float cl,m; 
+    Vec3f pos, vel;
+    float cl,m,a; 
 } boatObj;
 
 

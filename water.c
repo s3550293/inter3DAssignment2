@@ -147,3 +147,30 @@ float calcSineWaveSum(float a, float k, float x, float z, float t){
     float y = a * sin(((k*x)*x)+((k*z)*z)+(w*t));
     return y;
 }
+
+/*
+    Function called to draw the normal of a singular vertex
+*/
+float floatObjectM(float x, float z){
+    float val = 180.0 / M_PI;
+    float y;
+    float dx = 1;
+    float w = .25 * M_PI;
+    float dy = waves.a * waves.k * sin(((waves.k*x)*x)+((waves.k*z)*z)+(w*waves.t));
+    float t = sqrtf(dx * dx + dy * dy);
+    t /= 0.15;
+    dy /= t;
+    dx /= t;
+    y = calcSineWaveSum(waves.a, waves.k, waves.x, z, waves.t);
+    float x2 = x - dy;
+    float y2 = y + dx;
+    float m = atan((x-x2)/(y-y2)) * val;
+    return -m;
+}
+/*
+    Returns the y position to the corresponding
+*/
+float floatObjectY(float x, float z){
+    float y = calcSineWaveSum(waves.a, waves.k, waves.x, z, waves.t);
+    return y;
+}

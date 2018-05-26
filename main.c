@@ -21,7 +21,7 @@ void display(void)
         }else{
             glDisable(GL_LIGHTING);
         }
-        // DrawBoat();
+        DrawBoat();
         DrawCrust();
         drawPlayer();
         DraweWater(TAN,NORMAL,BI);
@@ -201,12 +201,10 @@ void idle(void){
     float dt;
     
     t = glutGet(GLUT_ELAPSED_TIME) / (float)milli - global.startTime;
-    
     if (lastT < 0.0) {
         lastT = t;
         return;
     }
-    
     dt = t - lastT;
     if (global.debug)
         printf("%f %f\n", t, dt);
@@ -216,7 +214,6 @@ void idle(void){
     }
     updatePlayer(angle);
     lastT = t;
-    
     /* Frame rate */
     dt = t - global.lastFrameRateT;
     if (dt > global.frameRateInterval) {
@@ -227,6 +224,19 @@ void idle(void){
     deltaT = dt;
     if (global.debug)
         printf("DT: %f",deltaT);
+    // if( (int)t % 8 == 0 ){
+    //     randX = rand() % 6 - 3;
+    //     randZ = rand() % 6 - 3;
+    //     printf("%s\n","Spawn Boat");
+    //     createBoat(randX,floatObjectY(randX,randZ),randZ,floatObjectM(randX,randZ));
+    // }
+    for( int i = 0; i< MAX; i++){
+        // float y = 0;
+        float m = 0;
+        // float y = floatObjectY(boatx(i),boatz(i));
+        // float m = floatObjectM(boatx(i),boatz(i));
+        // updateBoat(y,m,i);s
+    }
     glutPostRedisplay();
 }
 
@@ -332,6 +342,7 @@ int main(int argc, char **argv){
     glEnable(GL_NORMALIZE);
     glutMotionFunc(mouseMotion); //This calls the mouse motion when the a mouse button is clicked
     // glutPassiveMotionFunc(mouseMotion); // This calls the mouse motion when the mouse moves in the window (No click needed) 
+    srand((unsigned int)time(NULL));
     glutMainLoop();
     
     return EXIT_SUCCESS;

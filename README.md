@@ -17,7 +17,7 @@ In addition to the features from assignment 1:
 
 
 ## Features Not Implemented
-[BLANK]
+I missed alot of features, due to poor time management, moving house, doing 4 differnet programing assingments that use 4 different langauges which just burnt me out, I am dissapointed in my work that I am submitting, Assignment 1 is a much better reflection of my programming skills.
 
 
 ## Controls
@@ -37,7 +37,10 @@ In addition to the features from assignment 1:
 *   Shift + L - Toggles Lighting
 
 ### Island
-[TO IMPLEMENT]
+* Right Arrow - Turns the camera right
+* Left Arrow - Turns the camera Left
+* Up Arrow - rotates the camera up
+* Down Arrow - rotates the camera down
 
 ## Authors
 

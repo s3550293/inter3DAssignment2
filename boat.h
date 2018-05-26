@@ -3,8 +3,10 @@
 
 #include "util.h"
 
-void createBoat();
+bool createBoat(float x, float y, float z, float m);
 void DrawBoat();
-void updateBoat();
+void updateBoat(float y, float m, int index);
+float boatx(int index);
+float boatz(int index);
 
 #endif

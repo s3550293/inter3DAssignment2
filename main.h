@@ -33,7 +33,7 @@ typedef struct {
 
 float deltaT = 0;
 
-global_t global = { false, false, true, 0.0, true, 0, 0.0, 0.2, 0.0 };
+global_t global = { true, false, true, 0.0, true, 0, 0.0, 0.2, 0.0 };
 
 float rT = 0;
 float bT = 0;
@@ -51,6 +51,8 @@ int WATERSEG = 128;
 float angle = -45;
 float UPDOWN = 45;
 
+float randX = 0;
+float randZ = 0;
 
 
 #endif
