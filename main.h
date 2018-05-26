@@ -5,6 +5,7 @@
 #include "water.h"
 #include "island.h"
 #include "player.h"
+#include "boat.h"
 
 void drawLine();
 void xyz(void);

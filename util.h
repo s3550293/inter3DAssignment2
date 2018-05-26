@@ -34,12 +34,13 @@ typedef struct { float x, y; } vec2f;
 typedef struct { float x, y, z; } Vec3f;
 
 typedef struct { 
-    vec2f p,v;
+    Vec3f p,v;
     float m,a;
 } cannonBall;
 
 typedef struct { 
-    float x,y,cl,m; 
+    Vec3f pos;
+    float cl,m; 
 } boatObj;
 
 

@@ -99,7 +99,6 @@ void drawPlayer() {
             for (angle = 0.0 ; angle < 60.0 ; angle += 1) {
                 x2 = x1 + sin(angle) * r;
                 y2 = y1 + cos(angle) * r;
-                glNormal3f(x2, y2, 0);
                 glVertex2f(x2, y2);
             }
             glEnd();
@@ -133,7 +132,6 @@ void drawPlayer() {
                     x = r * cos(theta);
                     y = r * sin(theta);
                     z = -1 + (j) * zStep;
-                    glNormal3f(x,y,z);
                     glVertex3f(x,y,z);
                     z = -1 + (j+1) * zStep;
                     glVertex3f(x,y,z);

@@ -21,7 +21,7 @@ void display(void)
         }else{
             glDisable(GL_LIGHTING);
         }
-        
+        // DrawBoat();
         DrawCrust();
         drawPlayer();
         DraweWater(TAN,NORMAL,BI);
