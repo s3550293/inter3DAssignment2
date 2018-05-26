@@ -4,5 +4,6 @@
 #include "util.h"
 
 void drawPlayer();
+void updatePlayer(int angle);
 
 #endif

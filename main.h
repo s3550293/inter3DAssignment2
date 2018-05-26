@@ -3,32 +3,18 @@
 
 #include "util.h"
 #include "water.h"
+#include "island.h"
+#include "player.h"
 
 void drawLine();
 void xyz(void);
 void idle();
 void reshape(int width, int height);
 void displayHUD();
-void camera(int rotaion);
+void camera();
 void light();
-
-bool SHOW_T = false;
-bool SHOW_N = false;
-bool WAVEMOTION = true;
-float WATERSEG = 64;
-
-float redBoatX = -0.5;
-float blueBoatX = 0.5;
-
-float redCannonAng = 315;
-float blueCannonAng = 45;
-
-float islandCannonAng = 90;
-
-float rBHealth = 0.50;
-float bBHealth = 0.50;
-float iHealth = 0.50;
-
+void keyboardSpec(int key, int x, int y);
+void keyboard(unsigned char key, int x, int y);
 const float g = -1.5;
 const int milli = 1000;
 
@@ -52,6 +38,18 @@ float rT = 0;
 float bT = 0;
 float iT = 0;
 float t = 0;
+
+bool NORMAL = false;
+bool TAN = false;
+bool WIRE = true;
+bool LIGHT = false;
+bool TEX = false;
+bool BI = false;
+
+int WATERSEG = 128;
+float angle = -45;
+float UPDOWN = 45;
+
 
 
 #endif

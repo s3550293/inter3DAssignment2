@@ -1,28 +1,34 @@
 #include "main.h"
 
-float angle = -45;
-
 void display(void)
 {
-    glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    
+    if(WIRE){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
+    }else{
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
     if (global.OSD)
         displayHUD();
     // light();
+    
     glPushMatrix();
-        camera(angle);
+        camera();
+        glDisable(GL_LIGHTING);
         xyz();
-        // light();
-        DraweWater(true,true,64);
-        // DrawCrust();
-        // drawPlayer();
+        if(LIGHT){
+            light();
+        }else{
+            glDisable(GL_LIGHTING);
+        }
+        
+        DrawCrust();
+        drawPlayer();
+        DraweWater(TAN,NORMAL,BI);
         glDisable(GL_DEPTH_TEST);
         
         glEnable(GL_DEPTH_TEST);
+        
     glPopMatrix();
     global.frames++;
     if(global.debug){
@@ -36,8 +42,17 @@ void display(void)
 void light(){
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    GLfloat lightpos[] = {5,8,1,0};
+    
+    GLfloat lightpos[] = {1,2,-1,0};
+    GLfloat lightpos_2[] = {-1,2,-1,0};
     glLightfv(GL_LIGHT0,GL_POSITION, lightpos);
+    glEnable(GL_LIGHT1);
+    glLightfv(GL_LIGHT1,GL_POSITION, lightpos_2);
+    float blue[4] ={0.18f,0.54f,0.75f,1.0f};
+    float white[4] ={1.0f,1.0f,1.0f,1.0f};
+    glLightfv (GL_FRONT_AND_BACK, GL_AMBIENT, blue);
+    glLightfv (GL_FRONT_AND_BACK, GL_DIFFUSE, blue);
+    glLightfv (GL_FRONT_AND_BACK, GL_SPECULAR, white);
 }
 
 
@@ -66,10 +81,10 @@ void xyz(void){
         glEnd();
 }
 
-void camera(int rotaion){
-    glTranslatef(0,-1.5,-7.5);
-    glRotatef(40,1,0,0);
-    glRotatef(rotaion,0,1,0);
+void camera(){
+    glTranslatef(0,-1.6,-4);
+    glRotatef(UPDOWN,1,0,0);
+    glRotatef(angle,0,1,0);
 }
 
 /*
@@ -80,16 +95,94 @@ void keyboard(unsigned char key, int x, int y)
     switch (key)
     {
     case 27:
-    // case 'Q':
         exit(EXIT_SUCCESS);
         break;
-    case 'a':
-    // case 'Q':
+    case '+':
+        WATERSEG *= 2; 
+        break;
+    case '=':
+        WATERSEG *= 2; 
+        break;
+    case '-':
+        if(WATERSEG > 4){
+           WATERSEG /= 2; 
+        }
+        break;
+    case 'T':
+        if(TAN){
+            TAN = false;
+        }else{
+            TAN = true;
+        }
+        break;
+    case 'B':
+        if(BI){
+            BI = false;
+        }else{
+            BI = true;
+        }
+        break;
+    case 'Y':
+        if(TEX){
+            TEX = false;
+        }else{
+            TEX = true;
+        }
+        break;
+    case 'N':
+        if(NORMAL){
+            NORMAL = false;
+        }else{
+            NORMAL = true;
+        }
+        break;
+    case 'W':
+        if(WIRE){
+            WIRE = false;
+        }else{
+            WIRE = true;
+        }
+        break;
+    case 'P':
+        if(global.go){
+            global.go = false;
+        }else{
+            global.go = true;
+        }
+        break;
+    case 'O':
+        if(global.OSD){
+            global.OSD = false;
+        }else{
+            global.OSD = true;
+        }
+        break;
+    case 'L':
+        if(LIGHT){
+            LIGHT = false;
+        }else{
+            LIGHT = true;
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+void keyboardSpec(int key, int x, int y){
+    switch (key){
+    case GLUT_KEY_LEFT:
         angle += 1;
         break;
-    case 'd':
-    // case 'Q':
+    case GLUT_KEY_RIGHT:
         angle -= 1;
+        break;
+
+    case GLUT_KEY_UP:
+        UPDOWN += 1;
+        break;
+    case GLUT_KEY_DOWN:
+        UPDOWN -= 1;
         break;
     default:
         break;
@@ -119,7 +212,9 @@ void idle(void){
         printf("%f %f\n", t, dt);
     if (global.go){
         updateWater(dt,true, 0.7);
+        updateWaterSeg(WATERSEG);
     }
+    updatePlayer(angle);
     lastT = t;
     
     /* Frame rate */
@@ -179,7 +274,7 @@ void displayHUD(){
     
     glColor3f(1.0, 1.0, 1.0);
     glRasterPos2i(w - 150, h - 45);
-    snprintf(buffer, sizeof buffer, "tess: %5.0f", WATERSEG);
+    snprintf(buffer, sizeof buffer, "tess: %5d", WATERSEG);
     for (bufp = buffer; *bufp; bufp++)
         glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *bufp);
     
@@ -204,6 +299,22 @@ void reshape(int w, int h){
     glMatrixMode(GL_MODELVIEW);
 }
 
+void init()
+{
+    /* In this program these OpenGL calls only need to be done once,
+      but normally they would go elsewhere, e.g. display */
+
+    glMatrixMode(GL_PROJECTION);
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+    glMatrixMode(GL_MODELVIEW);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glEnable(GL_DEPTH_TEST);
+    // glDisable(GL_TEXTURE_2D);
+}
+
 int main(int argc, char **argv){
 
     glutInit(&argc, argv);
@@ -211,14 +322,16 @@ int main(int argc, char **argv){
     glutInitWindowSize(800,600);
     glutCreateWindow("Assignment 1 Island Battle!");
 
+    init();
+
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
+    glutSpecialFunc(keyboardSpec);
     glutKeyboardFunc(keyboard);
     glutIdleFunc(idle);
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
-    //glutMotionFunc(mouseMotion); //This calls the mouse motion when the a mouse button is clicked
-    glutPassiveMotionFunc(mouseMotion); // This calls the mouse motion when the mouse moves in the window (No click needed) 
-    playerIni();
+    glEnable(GL_NORMALIZE);
+    glutMotionFunc(mouseMotion); //This calls the mouse motion when the a mouse button is clicked
+    // glutPassiveMotionFunc(mouseMotion); // This calls the mouse motion when the mouse moves in the window (No click needed) 
     glutMainLoop();
     
     return EXIT_SUCCESS;

@@ -27,10 +27,12 @@ In addition to the features from assignment 1:
 ### Display Controls
 *   +/= - Increases the tesselation
 *   '-' - Decreases the tesselation
-*   Shift + T - Toggles the textures
-*   Shift + N - Toggles the SIN wave normals
-*   Shift + W - Toggles Pollygon Mode
-*   Shift + G - Toggles all game animations
+*   Shift + Y - Toggles the textures
+*   Shift + T - Toggles the SIN wave Tagents
+*   Shift + B - Toggles the SIN wave Binormals
+*   Shift + N - Toggles the Normals
+*   Shift + W - Toggles WireFrame Mode
+*   Shift + P - Toggles all game animations
 *   Shift + O - Toggles OSD
 *   Shift + L - Toggles Lighting
 
